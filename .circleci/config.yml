@@ -17,7 +17,7 @@ commands:
             when: on_fail
             command: |
                 # Example: Memstash.io
-                SUCCESS=$(curl --insecure  https://kvdb.io/24WRT5mwx7GbatJAu7rbXF/migration_<< parameters.workflow_id >>)
+                SUCCESS=$(curl --insecure  https://kvdb.io/LPxKGYgg6GmHRqNc9vNwNC/migration_<< parameters.workflow_id >>)
                 # Logic for reverting the database state
                 if (( $SUCCESS == 1 ));
                 then
@@ -169,7 +169,7 @@ jobs:
           command: |
             echo Y | sudo apt-get install jq
             sudo cat .circleci/ansible/inventory.txt
-            echo $(aws cloudformation describe-stacks --stack-name udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7} | sudo jq .Stacks[0].Outputs[0].OutputValue | tr -d '"') >> .circleci/ansible/inventory.txt 
+            echo $(aws cloudformation describe-stacks --stack-name udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7} | sudo jq .Stacks[0].Outputs[1].OutputValue | tr -d '"') >> .circleci/ansible/inventory.txt 
             sudo cat .circleci/ansible/inventory.txt
             
       - persist_to_workspace:
@@ -247,7 +247,7 @@ jobs:
               cat ~/project/backend/migrations_dump.txt
               if grep -q "has been executed successfully." ~/project/backend/migrations_dump.txt
               then
-                 curl https://kvdb.io/24WRT5mwx7GbatJAu7rbXF/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'          
+                 curl https://kvdb.io/LPxKGYgg6GmHRqNc9vNwNC/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'          
                 fi
       - revert-migrations 
 
@@ -330,7 +330,7 @@ jobs:
           name: destroy-environment on fail
           when: on_fail
           command: |
-            aws --region us-west-2 s3 rm "s3://udapeople-${OldWorkflowID}" --recursive
+            aws --region us-west-2 s3 rm "s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7}" --recursive
             aws cloudformation delete-stack --stack-name udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}
             aws cloudformation delete-stack --stack-name udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}
             aws cloudformation delete-stack --stack-name InitialStack  
@@ -340,12 +340,13 @@ jobs:
   smoke-test:
     executor: aws-cli/default
     steps:
+      - checkout
       - aws-cli/setup:
           profile-name: udacity
       - run:
           name: Backend smoke test.
           command: |
-            export BACKEND_url=$(aws cloudformation describe-stacks --stack-name udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7} | sudo jq .Stacks[0].Outputs[1].OutputValue | tr -d '"')
+            export BACKEND_url=$(aws cloudformation describe-stacks --stack-name udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7} | sudo jq .Stacks[0].Outputs[0].OutputValue | tr -d '"')
             export API_URL="http://${BACKEND_url}:3030"
             echo "API_URL = ${API_URL}"
             if curl "${API_URL}/api/status" | grep "ok"
@@ -369,6 +370,7 @@ jobs:
           name: destroy-environment on fail
           when: on_fail
           command: |
+            aws --region us-west-2 s3 rm "s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7}" --recursive
             aws cloudformation delete-stack --stack-name udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}
             aws cloudformation delete-stack --stack-name udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}
             aws cloudformation delete-stack --stack-name InitialStack
