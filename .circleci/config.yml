@@ -354,10 +354,7 @@ jobs:
             else
                 return 1
             fi
-      - run:
-          name: Backend smoke test.
-          command: |
-            # your code here
+   
       - run:
           name: Frontend smoke test.
           command: |
@@ -369,14 +366,14 @@ jobs:
             else
               return 1
             fi
-        - run:
-          name: destroy-environment on fail
-          when: on_fail
-          command: |
-            aws cloudformation delete-stack --stack-name udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}
-            aws cloudformation delete-stack --stack-name udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}
-            aws cloudformation delete-stack --stack-name InitialStack
-        - revert-migrations
+      - run:
+        name: destroy-environment on fail
+        when: on_fail
+        command: |
+          aws cloudformation delete-stack --stack-name udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}
+          aws cloudformation delete-stack --stack-name udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}
+          aws cloudformation delete-stack --stack-name InitialStack
+      - revert-migrations
 
 workflows:
   default:
