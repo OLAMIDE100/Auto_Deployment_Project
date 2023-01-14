@@ -446,7 +446,7 @@ workflows:
           requires: [build-backend]
       - scan-frontend:
           requires: [build-frontend]
-      - deploy-initial-cloudfront-infrastructure
+      - deploy-initial-cloudfront-infrastructure:
           filters:
             branches:
               only: [main]
