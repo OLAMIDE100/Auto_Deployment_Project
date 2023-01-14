@@ -1,0 +1,27 @@
+## Deployment playbook goes here.
+- name: extract artifact
+  become: yes
+  unarchive:
+    src: ./artifact.tar.gz
+    dest: .
+    
+- name: start app
+  become: yes
+  shell: |
+    npm install
+    pm2 stop all
+    pm2 start npm --name "udapeople-backend" -- run start
+  environment:
+    ENVIRONMENT: production
+    NODE_ENV: production
+    
+- name: "Set pm2 start as service"
+  become: yes
+  shell: |
+    env PATH=$PATH:/usr/local/bin pm2 startup -u ubuntu
+- name: check pm2 status
+  become: yes
+  shell: |
+    pm2 describe "udapeople-backend"
+  register: command_output_npm
+- debug: var=command_output_npm.stdout_lines
