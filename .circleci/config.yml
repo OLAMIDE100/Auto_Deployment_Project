@@ -349,7 +349,7 @@ jobs:
             export BACKEND_url=$(aws cloudformation describe-stacks --stack-name udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7} | sudo jq .Stacks[0].Outputs[0].OutputValue | tr -d '"')
             export API_URL="http://${BACKEND_url}:3030"
             echo "API_URL = ${API_URL}"
-            if curl -s "${API_URL}/api/status" | grep "ok"
+            if curl -s ${API_URL}/api/status | grep "ok"
             then
                 return 0
             else
