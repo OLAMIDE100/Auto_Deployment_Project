@@ -194,7 +194,7 @@ jobs:
       - aws-cli/setup:
           profile-name: udacity
       - add_ssh_keys:
-          fingerprints: ["4f:b5:fb:32:e4:71:7c:7f:7f:ca:57:c4:48:81:b9:cd"] 
+          fingerprints: ["37:15:79:e4:1b:ca:d8:53:70:11:2d:75:48:76:f6:4c"] 
       - attach_workspace:
           at: ~/
       - run:
@@ -307,7 +307,7 @@ jobs:
       - aws-cli/setup:
           profile-name: udacity
       - add_ssh_keys:
-          fingerprints: ["4f:b5:fb:32:e4:71:7c:7f:7f:ca:57:c4:48:81:b9:cd"] 
+          fingerprints: ["37:15:79:e4:1b:ca:d8:53:70:11:2d:75:48:76:f6:4c"] 
       - attach_workspace:
           at: ~/
       - run:
