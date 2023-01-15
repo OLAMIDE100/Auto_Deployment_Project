@@ -270,7 +270,7 @@ jobs:
           name: Get backend url
           command: |
             echo Y | sudo apt-get install jq
-            export BACKEND_IP=$(aws cloudformation describe-stacks --stack-name udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7} | sudo jq .Stacks[0].Outputs[0].OutputValue | tr -d '"')
+            export BACKEND_IP=$(aws cloudformation describe-stacks --stack-name udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7} | sudo jq .Stacks[0].Outputs[1].OutputValue | tr -d '"')
             export API_URL="http://${BACKEND_IP}:3030"
             echo "API_URL = ${API_URL}"
             echo API_URL="http://${BACKEND_IP}:3030" >> frontend/.env
