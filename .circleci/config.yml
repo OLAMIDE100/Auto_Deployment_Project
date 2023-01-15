@@ -275,6 +275,10 @@ jobs:
             echo "API_URL = ${API_URL}"
             echo API_URL="http://${BACKEND_IP}:3030" >> frontend/.env
             sudo cat frontend/.env
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - project/frontend/.env
       - run:
           name: Deploy frontend objects
           command: |
