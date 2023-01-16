@@ -44,12 +44,12 @@ Outputs:
     Value: !GetAtt EC2Instance.PublicIp
     Description: ip adress of backend
     Export:
-      Name: backendips
+      Name: backendip
 
   EC2InstanceIPName:
     Value: !GetAtt EC2Instance.PublicDnsName
     Description: URL for website hosted on S3
     Export:
-      Name: backendPublicDnsNames
+      Name: backendPublicDnsName
 
       
