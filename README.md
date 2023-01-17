@@ -55,7 +55,7 @@ with Slack and E-mail notifications used for alerts.<br>"<small><i>the fictional
 <h3 align="center">UdaPeople Pipeline</h3>   
 
 <p align="center">
-  <img width="" height="" src="./udapeople-pipeline.png"  
+  <img width="" height="" src="./Screenshot/pipeline.jpg"  
 </p>
 
 ## Prerequisites
@@ -90,7 +90,7 @@ with Slack and E-mail notifications used for alerts.<br>"<small><i>the fictional
 <h2 align="center">Project Submission</h2>  
 
 <p align="center">
-  <img width="" height="" src="./pipeline.jpg"  
+  <img width="" height="" src="./Screenshot/pipelineresult.png"  
 </p>
     
 ## Files
