@@ -1,5 +1,5 @@
 #
-<h1 align="center">Udacity Advanced Cloud DevOps<br></h1>  
+<h1 align="center">Auto Deployment Project (Cloud DevOps)<br></h1>  
 
 <!-- Adding Status Badges circleci Template
 # Template:
